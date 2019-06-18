@@ -50,7 +50,7 @@ def main():
     model = Model()
     if args.model_state_path is not None:
         model.load_state_dict(torch.load(args.model_state_path, map_location=lambda storage, loc: storage))
-    model = model.to(device)
+    model.to(device)
 
     # camera
     # cam_cap = cv2.VideoCapture(0)
