@@ -53,15 +53,14 @@ def main():
     model.to(device)
 
     # camera
-    # cam_cap = cv2.VideoCapture(0)
-    cam_cap = cv2.VideoCapture(args.content)
-    vid_cap = cv2.VideoCapture(args.style)
-    while cam_cap.isOpened() and vid_cap.isOpened():
-        cam_ret, cam_frame = cam_cap.read()
+    content_cap = cv2.VideoCapture(args.content)
+    video_cap = cv2.VideoCapture(args.style)
+    while content_cap.isOpened() and video_cap.isOpened():
+        cam_ret, cam_frame = content_cap.read()
         c_img = Image.fromarray(cam_frame[:, :, ::-1])
         c_tensor = trans(c_img).unsqueeze(0).to(device)
 
-        vid_ret, vid_frame = vid_cap.read()
+        vid_ret, vid_frame = video_cap.read()
         s_img = Image.fromarray(vid_frame[:, :, ::-1])
         s_tensor = trans(s_img).unsqueeze(0).to(device)
 
@@ -81,8 +80,8 @@ def main():
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-    cam_cap.release()
-    vid_cap.release()
+    content_cap.release()
+    video_cap.release()
     cv2.destroyAllWindows()
 
 

@@ -1,8 +1,9 @@
 .vscode/
 
 *.mp4
+*.pt
+*.pth
 
 __pycache__/
-model_state.pth
 
 /VENV

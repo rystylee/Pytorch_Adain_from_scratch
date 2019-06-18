@@ -65,7 +65,7 @@ def main():
         with torch.no_grad():
             out = model.generate(c_tensor, s_tensor, args.alpha)
         finished_time = time.time()
-        print('fps: {}'.format(1 / (finished_time - current_time)))
+        print('time: {}'.format(finished_time - current_time))
 
         out_denorm = denorm(out, device)
         out_denorm_np = out_denorm.squeeze().cpu().numpy().transpose(1, 2, 0)

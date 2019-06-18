@@ -37,17 +37,17 @@ def main():
     else:
         device = 'cpu'
 
-    model = Model()
+    model = Model().to(device)
     if args.model_state_path is not None:
         model.load_state_dict(torch.load(args.model_state_path, map_location=lambda storage, loc: storage))
         print('Succeed to load state dict!')
-    model.to(device)
     model.eval()
 
-    input_c = torch.ones(1, 3, 1080, 1920).to(device)
+    input_c = torch.ones(1, 3, 540, 960).to(device)
     input_s = torch.ones(1, 3, 360, 640).to(device)
     input_a = torch.ones(1).to(device)
     traced_script_module = torch.jit.trace(model, (input_c, input_s, input_a))
+    output = traced_script_module(input_c, input_s, input_a)
 
     if device == 'cpu':
         name = 'AdaIN_cpu.pt'
